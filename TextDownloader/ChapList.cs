@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace TextDownloader
 {
-    public partial class Form1 : Form
+    public partial class ChapList : Form
     {
-        public Form1()
+        public ChapList()
         {
             InitializeComponent();
+        }
+
+        private void lvChapList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
