@@ -39,16 +39,23 @@
             // 
             // lvChapList
             // 
+            this.lvChapList.CheckBoxes = true;
             this.lvChapList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
             this.lvChapList.FullRowSelect = true;
             this.lvChapList.Location = new System.Drawing.Point(13, 13);
+            this.lvChapList.MultiSelect = false;
             this.lvChapList.Name = "lvChapList";
+            this.lvChapList.OwnerDraw = true;
             this.lvChapList.Size = new System.Drawing.Size(409, 342);
             this.lvChapList.TabIndex = 0;
             this.lvChapList.UseCompatibleStateImageBehavior = false;
             this.lvChapList.View = System.Windows.Forms.View.Details;
+            this.lvChapList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvChapList_ColumnClick_1);
+            this.lvChapList.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.lvChapList_DrawColumnHeader_1);
+            this.lvChapList.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.lvChapList_DrawItem_1);
+            this.lvChapList.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.lvChapList_DrawSubItem_1);
             this.lvChapList.SelectedIndexChanged += new System.EventHandler(this.lvChapList_SelectedIndexChanged);
             // 
             // btnSave
@@ -59,6 +66,7 @@
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCheck
             // 
@@ -68,6 +76,7 @@
             this.btnCheck.TabIndex = 2;
             this.btnCheck.Text = "Chọn";
             this.btnCheck.UseVisualStyleBackColor = true;
+            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
             // txtChapList
             // 
@@ -114,6 +123,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chọn chương tải";
+            this.Load += new System.EventHandler(this.ChapList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

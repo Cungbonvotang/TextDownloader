@@ -12,6 +12,8 @@ namespace TextDownloader
 {
     public partial class Main : Form
     {
+        string address;
+
         public Main()
         {
             InitializeComponent();
@@ -19,8 +21,26 @@ namespace TextDownloader
 
         private void btnChapList_Click(object sender, EventArgs e)
         {
-            ChapList c = new ChapList();
-            c.ShowDialog();
+            if (InternetConnection.IsConnectedToInternet())
+            {
+                address = txtAddress.Text.Trim();
+                List<Info> info = new List<Info>();
+                GetText g = new GetText();
+                if (g.CheckAddress(address))
+                {
+                    info = g.GetChapList(address);
+                    if (info != null)
+                    {
+                        ChapList c = new ChapList(info);
+                        c.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không thể kết nối internet", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDownload_Click(object sender, EventArgs e)

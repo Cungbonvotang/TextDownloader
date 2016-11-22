@@ -28,20 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtFileName = new System.Windows.Forms.TextBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnChapList = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
+            this.txtFileName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // txtFileName
-            // 
-            this.txtFileName.Location = new System.Drawing.Point(13, 13);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(359, 26);
-            this.txtFileName.TabIndex = 0;
             // 
             // txtAddress
             // 
@@ -89,6 +82,13 @@
             this.btnSetting.UseVisualStyleBackColor = true;
             this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
+            // txtFileName
+            // 
+            this.txtFileName.Location = new System.Drawing.Point(13, 13);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.Size = new System.Drawing.Size(359, 26);
+            this.txtFileName.TabIndex = 0;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -113,13 +113,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnChapList;
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.TextBox txtFileName;
     }
 }
 

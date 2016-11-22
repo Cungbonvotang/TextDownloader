@@ -1,0 +1,14 @@
+SavePath=D:
+Website=www.uukanshu.com|www.shumilou.co|www.ranwen.org|www.69shu.com|www.lwxs.com|www.sqsxs.com|www.7dsw.com|www.qu.la|www.pbtxt.com|www.33yq.com|www.biqugezw.com|www.piaotian.net
+www.uukanshu.com==//ul[@id='chapterList']/li/a|http://www.uukanshu.com|0|0|//h1[@id='timu']|//div[@id='contentbox']|true|true|false
+www.shumilou.co==//ul/li[@class='zl']/a|http://www.shumilou.co|0|0|//div[@class='title']/h2|//div[@id='content']|false|false|false
+www.ranwen.org==//div[@id='list']/dl/dd/a||0|0|//div[@class='bookname']/h1|//div[@id='content']|true|false|false
+www.69shu.com==//ul[@class='mulu_list']/li/a|http://www.69shu.com|6|1|//td[@class='ydleft']/h1|//div[@class='yd_text2']|true|false|false
+www.lwxs.com==//div[@id='list']/dl/dd/a|auto|0|0|//div[@class='zhangjieming']/h1|//div[@id='TXT']|true|false|false
+www.sqsxs.com==//dl/dd/a|auto|0|0|//h1|//div[@id='content']|true|false|false
+www.7dsw.com==//dl/dd/a|auto|0|0|//div[@class='bookname']/h1|//div[@id='BookText']|true|false|false
+www.qu.la==//dl//dd/a|auto|0|0|//div[@class='bookname']/h1|//div[@id='content']|true|false|false
+www.pbtxt.com==//dl/dd/a|auto|0|0|//div[@class='title']/h1|//div[contains(@id, 'content')]|true|false|true
+www.33yq.com==//dl/dd/a||0|0|//div[@class='zhangjieming']|//div[@id='TXT']|true|false|true
+www.biqugezw.com==//dl/dd/a|http://www.biqugezw.com|0|0|//div[@class='bookname']/h1|//div[@id='content']|true|false|false
+www.piaotian.net==//ul/li/a|auto|4|0|//h1|auto|true|false|false
