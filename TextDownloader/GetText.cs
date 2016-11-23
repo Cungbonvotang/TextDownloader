@@ -120,11 +120,59 @@ namespace TextDownloader
                     chapList = RemoveSurplusChap(chapList, startNode, endNode);
 
                 List<Info> listInfo = new List<Info>();
+                if (rightToLeft)
+                {
+                    //Xử lý text bị đặt sai thứ tự (3, 2, 1, 6, 5, 4,...) thành (1, 2, 3, 4, 5, 6,...)
+                    HtmlNode temp;
+                    Parallel.For(0, chapList.Count, i =>
+                    {
+                        if ((i) % 3 == 0)
+                        {
+                            if ((chapList.Count - i) > 2)
+                            {
+                                temp = chapList[i];
+                                chapList[i] = chapList[i + 2];
+                                chapList[i + 2] = temp;
+                            }
+                            else if ((chapList.Count - i) == 2)
+                            {
+                                temp = chapList[i];
+                                chapList[i] = chapList[i + 1];
+                                chapList[i + 1] = temp;
+                            }
+                        }
+                    });
+
+                    List<int> deleteChap = new List<int>();
+                    Parallel.For(0, chapList.Count, i =>
+                    {
+                        if (chapList[i].InnerHtml == "&nbsp;")
+                            deleteChap.Add(i);
+                    });
+
+                    deleteChap.Sort();
+                    for (int i = deleteChap.Count - 1; i >= 0; i--)
+                    {
+                        chapList.RemoveAt(deleteChap[i]);
+                    }
+                }
+
+                
                 for (int i = 0; i < chapList.Count; i++)
                 {
                     Info info = new Info();
-                    info.Title = chapList[i].InnerText;
-                    info.Address = chapAddressNode + chapList[i].Attributes["href"].Value;
+                    HtmlNode data = chapList[i];
+                    if (rightToLeft)
+                    {
+                        info.Title = chapList[i].SelectSingleNode("a").InnerText;
+                        info.Address = chapAddressNode + chapList[i].SelectSingleNode("a").Attributes["href"].Value;
+                    }
+                    else
+                    {
+                        info.Title = chapList[i].InnerText;
+                        info.Address = chapAddressNode + chapList[i].Attributes["href"].Value;
+                    }
+                    
                     listInfo.Add(info);
                 }
 

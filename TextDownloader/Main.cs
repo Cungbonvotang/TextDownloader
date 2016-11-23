@@ -51,18 +51,10 @@ namespace TextDownloader
             Util.SetTooltip(tipInfo, txtAddress, content);
         }
 
-        public void SetControlEnable(bool b)
-        {
-            btnChapList.Enabled = b;
-            btnSetting.Enabled = b;
-            txtAddress.Enabled = b;
-        }
-
         public void GetChapList()
         {
             if (InternetConnection.IsConnectedToInternet())
             {
-                SetControlEnable(false);
                 address = txtAddress.Text.Trim();
                 info = new List<Info>();
                 GetText g = new GetText();

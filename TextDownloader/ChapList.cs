@@ -188,15 +188,15 @@ namespace TextDownloader
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            chapList = new List<Info>();
-            for (int i = 0; i < lvChapList.Items.Count; i++)
-            {
-                if (lvChapList.Items[i].Checked)
-                {
-                    chapList.Add(info[i]);
-                }
-            }
-            Dispose();
+            //chapList = new List<Info>();
+            //for (int i = 0; i < lvChapList.Items.Count; i++)
+            //{
+            //    if (lvChapList.Items[i].Checked)
+            //    {
+            //        chapList.Add(info[i]);
+            //    }
+            //}
+            //Dispose();
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
