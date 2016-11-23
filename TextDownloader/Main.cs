@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,28 +13,62 @@ namespace TextDownloader
 {
     public partial class Main : Form
     {
+        #region Khai báo
         string address;
+        List<Info> info;
+
+        public TextBox Address
+        {
+            get { return txtAddress; }
+            set { txtAddress = value; }
+        }
+
+        public Button Setting
+        {
+            get { return btnSetting; }
+            set { btnSetting = value; }
+        }
+
+        public Button ChapList
+        {
+            get { return btnChapList; }
+            set { btnChapList = value; }
+        }
+
+        public Label Status
+        {
+            get { return lblStatus; }
+            set { lblStatus = value; }
+        }
+        #endregion
 
         public Main()
         {
             InitializeComponent();
+            string content = "Bấm vào đây để đến diễn đàn";
+            Util.SetTooltip(tipInfo, lblInfo, content);
+            content = "Nhập địa chỉ truyện bạn muốn tải vào đây";
+            Util.SetTooltip(tipInfo, txtAddress, content);
         }
 
-        private void btnChapList_Click(object sender, EventArgs e)
+        public void SetControlEnable(bool b)
+        {
+            btnChapList.Enabled = b;
+            btnSetting.Enabled = b;
+            txtAddress.Enabled = b;
+        }
+
+        public void GetChapList()
         {
             if (InternetConnection.IsConnectedToInternet())
             {
+                SetControlEnable(false);
                 address = txtAddress.Text.Trim();
-                List<Info> info = new List<Info>();
+                info = new List<Info>();
                 GetText g = new GetText();
                 if (g.CheckAddress(address))
                 {
                     info = g.GetChapList(address);
-                    if (info != null)
-                    {
-                        ChapList c = new ChapList(info);
-                        c.ShowDialog();
-                    }
                 }
             }
             else
@@ -43,14 +78,25 @@ namespace TextDownloader
             }
         }
 
-        private void btnDownload_Click(object sender, EventArgs e)
+        private void btnChapList_Click(object sender, EventArgs e)
         {
-
+            Thread t = new Thread(GetChapList);
+            t.IsBackground = true;
+            t.Start();
+            t.Join();
+            ChapList c = new ChapList(this, info);
+            c.ShowDialog();
         }
 
         private void btnSetting_Click(object sender, EventArgs e)
         {
+            Setting s = new Setting();
+            s.ShowDialog();
+        }
 
+        private void lblInfo_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.tangthuvien.vn/forum/showthread.php?t=135248");
         }
     }
 }

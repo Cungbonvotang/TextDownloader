@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lvChapList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCheck = new System.Windows.Forms.Button();
             this.txtChapList = new System.Windows.Forms.TextBox();
             this.cbFileType = new System.Windows.Forms.ComboBox();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtFileName = new System.Windows.Forms.TextBox();
+            this.tipInfo = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lvChapList
@@ -58,9 +61,19 @@
             this.lvChapList.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.lvChapList_DrawSubItem_1);
             this.lvChapList.SelectedIndexChanged += new System.EventHandler(this.lvChapList_SelectedIndexChanged);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 30;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Tên chương";
+            this.columnHeader2.Width = 350;
+            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(347, 416);
+            this.btnSave.Location = new System.Drawing.Point(347, 455);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 28);
             this.btnSave.TabIndex = 1;
@@ -70,7 +83,7 @@
             // 
             // btnCheck
             // 
-            this.btnCheck.Location = new System.Drawing.Point(266, 416);
+            this.btnCheck.Location = new System.Drawing.Point(266, 455);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(75, 28);
             this.btnCheck.TabIndex = 2;
@@ -80,7 +93,7 @@
             // 
             // txtChapList
             // 
-            this.txtChapList.Location = new System.Drawing.Point(225, 375);
+            this.txtChapList.Location = new System.Drawing.Point(225, 414);
             this.txtChapList.Name = "txtChapList";
             this.txtChapList.Size = new System.Drawing.Size(197, 26);
             this.txtChapList.TabIndex = 3;
@@ -89,26 +102,25 @@
             // 
             this.cbFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFileType.FormattingEnabled = true;
-            this.cbFileType.Location = new System.Drawing.Point(13, 375);
+            this.cbFileType.Location = new System.Drawing.Point(13, 414);
             this.cbFileType.Name = "cbFileType";
             this.cbFileType.Size = new System.Drawing.Size(197, 27);
             this.cbFileType.TabIndex = 4;
+            this.cbFileType.SelectedIndexChanged += new System.EventHandler(this.cbFileType_SelectedIndexChanged);
             // 
-            // columnHeader1
+            // txtFileName
             // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 30;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Tên chương";
-            this.columnHeader2.Width = 375;
+            this.txtFileName.Location = new System.Drawing.Point(12, 372);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.Size = new System.Drawing.Size(409, 26);
+            this.txtFileName.TabIndex = 5;
             // 
             // ChapList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 456);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(434, 495);
+            this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.cbFileType);
             this.Controls.Add(this.txtChapList);
             this.Controls.Add(this.btnCheck);
@@ -123,6 +135,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chọn chương tải";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChapList_FormClosing);
             this.Load += new System.EventHandler(this.ChapList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -138,5 +151,7 @@
         private System.Windows.Forms.Button btnCheck;
         private System.Windows.Forms.TextBox txtChapList;
         private System.Windows.Forms.ComboBox cbFileType;
+        private System.Windows.Forms.TextBox txtFileName;
+        private System.Windows.Forms.ToolTip tipInfo;
     }
 }
