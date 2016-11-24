@@ -53,31 +53,32 @@ namespace TextDownloader
 
         public void GetChapList()
         {
+            address = txtAddress.Text.Trim();
+            info = new List<Info>();
+            GetText g = new GetText();
+            if (g.CheckAddress(address))
+            {
+                info = g.GetChapList(address);
+            }
+        }
+
+        private void btnChapList_Click(object sender, EventArgs e)
+        {
             if (InternetConnection.IsConnectedToInternet())
             {
-                address = txtAddress.Text.Trim();
-                info = new List<Info>();
-                GetText g = new GetText();
-                if (g.CheckAddress(address))
-                {
-                    info = g.GetChapList(address);
-                }
+                Invoke(new MethodInvoker(delegate { lblStatus.Text = "Tiến trình: Đang xử lý danh sách truyện..."; }));
+                Thread t = new Thread(GetChapList);
+                t.IsBackground = true;
+                t.Start();
+                t.Join();
+                ChapList c = new ChapList(this, info);
+                c.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Không thể kết nối internet", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void btnChapList_Click(object sender, EventArgs e)
-        {
-            Thread t = new Thread(GetChapList);
-            t.IsBackground = true;
-            t.Start();
-            t.Join();
-            ChapList c = new ChapList(this, info);
-            c.ShowDialog();
         }
 
         private void btnSetting_Click(object sender, EventArgs e)

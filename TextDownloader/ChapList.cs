@@ -183,6 +183,7 @@ namespace TextDownloader
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 SetControlEnable(true);
+                main.Status.Text = "Tiến trình: ";
             }
         }
 

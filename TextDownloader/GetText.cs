@@ -119,29 +119,17 @@ namespace TextDownloader
                 if (startNode > 0 || endNode > 0)
                     chapList = RemoveSurplusChap(chapList, startNode, endNode);
 
+                //Xử lý text bị đặt sai thứ tự (3, 2, 1, 6, 5, 4,...) thành (1, 2, 3, 4, 5, 6,...)
                 List<Info> listInfo = new List<Info>();
                 if (rightToLeft)
                 {
-                    //Xử lý text bị đặt sai thứ tự (3, 2, 1, 6, 5, 4,...) thành (1, 2, 3, 4, 5, 6,...)
                     HtmlNode temp;
-                    Parallel.For(0, chapList.Count, i =>
+                    for (int i = 0; i < chapList.Count; i += 3)
                     {
-                        if ((i) % 3 == 0)
-                        {
-                            if ((chapList.Count - i) > 2)
-                            {
-                                temp = chapList[i];
-                                chapList[i] = chapList[i + 2];
-                                chapList[i + 2] = temp;
-                            }
-                            else if ((chapList.Count - i) == 2)
-                            {
-                                temp = chapList[i];
-                                chapList[i] = chapList[i + 1];
-                                chapList[i + 1] = temp;
-                            }
-                        }
-                    });
+                        temp = chapList[i];
+                        chapList[i] = chapList[i + 2];
+                        chapList[i + 2] = temp;
+                    }
 
                     List<int> deleteChap = new List<int>();
                     Parallel.For(0, chapList.Count, i =>
@@ -157,7 +145,7 @@ namespace TextDownloader
                     }
                 }
 
-                
+
                 for (int i = 0; i < chapList.Count; i++)
                 {
                     Info info = new Info();
@@ -172,7 +160,7 @@ namespace TextDownloader
                         info.Title = chapList[i].InnerText;
                         info.Address = chapAddressNode + chapList[i].Attributes["href"].Value;
                     }
-                    
+
                     listInfo.Add(info);
                 }
 
