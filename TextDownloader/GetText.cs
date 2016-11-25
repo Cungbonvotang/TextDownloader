@@ -1,7 +1,9 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,10 +14,9 @@ namespace TextDownloader
     class GetText
     {
         #region Khai báo
-        Main main;
-        string chapListNode, chapAddressNode, titleNode, contentNode, address;
+        string chapListNode, chapAddressNode, titleNode, contentNode;
         int startNode, endNode;
-        bool reverse, encodeGB2312, rightToLeft;
+        bool isReverse, isEncodeGB2312, isRightToLeft;
         #endregion
 
         public bool CheckAddress(string address)
@@ -31,7 +32,7 @@ namespace TextDownloader
             }
         }
 
-        public bool GetNode(string address)
+        private bool GetNode(string address)
         {
             try
             {
@@ -65,11 +66,11 @@ namespace TextDownloader
                     titleNode = a[4];
                     contentNode = a[5];
                     if (a[6] == "true")
-                        encodeGB2312 = true;
+                        isEncodeGB2312 = true;
                     if (a[7] == "true")
-                        reverse = true;
+                        isReverse = true;
                     if (a[8] == "true")
-                        rightToLeft = true;
+                        isRightToLeft = true;
 
                     return true;
                 }
@@ -81,7 +82,7 @@ namespace TextDownloader
             }
         }
 
-        public HtmlNodeCollection RemoveSurplusChap(HtmlNodeCollection chapList, int startNode, int endNode)
+        private HtmlNodeCollection RemoveSurplusChap(HtmlNodeCollection chapList, int startNode, int endNode)
         {
             for (int i = 0; i < startNode; i++)
             {
@@ -95,7 +96,7 @@ namespace TextDownloader
             return chapList;
         }
 
-        public HtmlWeb WebConfig(bool encodeGB2312)
+        private HtmlWeb WebConfig(bool encodeGB2312)
         {
             HtmlWeb web;
             if (encodeGB2312)
@@ -112,7 +113,7 @@ namespace TextDownloader
             try
             {
                 if (!GetNode(address)) return null;
-                HtmlWeb web = WebConfig(encodeGB2312);
+                HtmlWeb web = WebConfig(isEncodeGB2312);
                 var doc = web.Load(address);
                 HtmlNodeCollection chapList = doc.DocumentNode.SelectNodes(chapListNode);
 
@@ -121,7 +122,7 @@ namespace TextDownloader
 
                 //Xử lý text bị đặt sai thứ tự (3, 2, 1, 6, 5, 4,...) thành (1, 2, 3, 4, 5, 6,...)
                 List<Info> listInfo = new List<Info>();
-                if (rightToLeft)
+                if (isRightToLeft)
                 {
                     HtmlNode temp;
                     for (int i = 0; i < chapList.Count; i += 3)
@@ -150,7 +151,7 @@ namespace TextDownloader
                 {
                     Info info = new Info();
                     HtmlNode data = chapList[i];
-                    if (rightToLeft)
+                    if (isRightToLeft)
                     {
                         info.Title = chapList[i].SelectSingleNode("a").InnerText;
                         info.Address = chapAddressNode + chapList[i].SelectSingleNode("a").Attributes["href"].Value;
@@ -164,7 +165,7 @@ namespace TextDownloader
                     listInfo.Add(info);
                 }
 
-                if (reverse)
+                if (isReverse)
                     listInfo.Reverse();
 
                 return listInfo;
@@ -174,6 +175,105 @@ namespace TextDownloader
                 MessageBox.Show(e.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
+        }
+
+        private string GetHTMLString(string address)
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    if (isEncodeGB2312)
+                        client.Encoding = Encoding.GetEncoding("gb2312");
+                    else
+                        client.Encoding = Encoding.UTF8;
+                    client.Headers.Add("user-agent",
+                        "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
+                    return client.DownloadString(address);
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private string RemoveHTMLTag(string dataInput)
+        {
+            dataInput = Regex.Replace(dataInput, @"<p>|<br>|<br \/>", "_newline1_");
+            dataInput = Regex.Replace(dataInput, @"(&nbsp;)+", "");
+            dataInput = Regex.Replace(dataInput, @"<script[^>]*>[\s\S]*?<\/script>", "");
+            dataInput = Regex.Replace(dataInput, @"<div[^>]*>[\s\S]*?<\/div>", "");
+            dataInput = Regex.Replace(dataInput, @"<center[^>]*>[\s\S]*?<\/center>", "");
+            dataInput = Regex.Replace(dataInput, @"<a[^>]*>[\s\S]*?<\/a>", "");
+            dataInput = Regex.Replace(dataInput, @"( |\t|\r?\n|\r\n|\n|<\/p>)+|<.*?>", "");
+            dataInput = Regex.Replace(dataInput, @"_newline1_", "\r\n");
+            dataInput = Regex.Replace(dataInput, @"(\r\n|\r?\n|\n){1,}", "\r\n    ");
+            dataInput = Regex.Replace(dataInput, @"_newline2_", "\r\n\r\n    ");
+
+            return dataInput;
+        }
+
+        public bool Get(Main main, List<Info> chapAddresses)
+        {
+            if (!GetNode(main.Address.Text.Trim())) return false;
+            int chapNumber = chapAddresses.Count;
+            string[] novel = new string[chapNumber];
+            int count = 0;
+
+            Parallel.For(0, chapNumber, i =>
+            {
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        if (isEncodeGB2312)
+                            client.Encoding = Encoding.GetEncoding("gb2312");
+                        else
+                            client.Encoding = Encoding.UTF8;
+                        client.Headers.Add("user-agent",
+                            "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0");
+                        novel[i] = client.DownloadString(chapAddresses[i].Address);
+                        count += 1;
+                        main.Status.Text = "Tiến trình: " + ((float)(count * 100) / (chapNumber - 1)).ToString("0.00") + "%";
+                    }
+                }
+                catch
+                {
+
+                }
+            });
+
+            main.Status.Text = "Tiến trình: Xử lý text rác...";
+            Parallel.For(0, chapNumber, i =>
+            {
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(novel[i]);
+                string content = null;
+                if (contentNode != "auto")
+                    content = doc.DocumentNode.SelectSingleNode(contentNode).InnerHtml;
+                content = novel[i];
+                novel[i] = chapAddresses[i].Title + "_newline2_" + content + "_newline2_";
+                novel[i] = RemoveHTMLTag(novel[i]);
+            });
+
+            if (ChapList.fileTypeIndex == 0)
+            {
+                File.WriteAllLines(Config.KeyValue("SavePath") + "\\" + ChapList.novelName + ".txt", novel);
+            }
+            else
+            {
+                string folderPath = Config.KeyValue("SavePath");
+                Directory.CreateDirectory(folderPath + "\\" + ChapList.novelName);
+                Parallel.For(0, novel.Count(), i =>
+                {
+                    string saveFilePath = folderPath + "\\" + ChapList.novelName +
+                                        "\\" + i + ".txt";
+                    File.WriteAllText(saveFilePath, novel[i]);
+                });
+            }
+            main.Status.Text = "Tải hoàn thành";
+            return true;
         }
     }
 }

@@ -135,7 +135,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chọn chương tải";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChapList_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChapList_FormClosed);
             this.Load += new System.EventHandler(this.ChapList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

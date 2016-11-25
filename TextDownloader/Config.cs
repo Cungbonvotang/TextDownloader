@@ -10,8 +10,8 @@ namespace TextDownloader
 {
     class Config
     {
-        const string config = "Config.dat";
-        const string deletePhrase = "DeletePhrase.dat";
+        const string configFile = Info.ConfigFile;
+        const string deletePhraseFile = Info.DeletePhraseFile;
 
         public static List<string> ReadFile(string fileName)
         {
@@ -58,7 +58,7 @@ namespace TextDownloader
         {
             List<string> list = new List<string>();
             string value = null;
-            list = ReadFile(config);
+            list = ReadFile(configFile);
             if (list == null) return null;
 
             Parallel.ForEach(list, str =>
@@ -79,10 +79,10 @@ namespace TextDownloader
             try
             {
                 List<string> list = new List<string>();
-                list = ReadFile(config);
+                list = ReadFile(configFile);
                 list.Add(key + "==" + value);
                 list.Sort();
-                WriteFile(config, list);
+                WriteFile(configFile, list);
             }
             catch (Exception e)
             {
@@ -95,7 +95,7 @@ namespace TextDownloader
             try
             {
                 List<string> list = new List<string>();
-                list = ReadFile(config);
+                list = ReadFile(configFile);
                 Parallel.ForEach(list, str =>
                 {
                     if (str.StartsWith(key + "=="))
@@ -108,7 +108,7 @@ namespace TextDownloader
                 });
 
                 list.Sort();
-                WriteFile(config, list);
+                WriteFile(configFile, list);
             }
             catch (Exception e)
             {
@@ -121,7 +121,7 @@ namespace TextDownloader
             try
             {
                 List<string> list = new List<string>();
-                list = ReadFile(config);
+                list = ReadFile(configFile);
                 Parallel.ForEach(list, str =>
                 {
                     if (str.StartsWith(key + "=="))
@@ -130,7 +130,7 @@ namespace TextDownloader
                 });
 
                 list.Sort();
-                WriteFile(config, list);
+                WriteFile(configFile, list);
             }
             catch (Exception e)
             {
@@ -143,7 +143,7 @@ namespace TextDownloader
             try
             {
                 List<string> list = new List<string>();
-                list = ReadFile(config);
+                list = ReadFile(configFile);
                 Parallel.ForEach(list, str =>
                 {
                     string[] tmp = str.Split(new string[] { "==" }, StringSplitOptions.None);

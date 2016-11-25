@@ -12,6 +12,9 @@ namespace TextDownloader
         public const string FAILED = "FAILED";
         public const string COMPLETED = "COMPLETED";
         public static string[] FileType = { "Tải một file gộp", "Tải nhiều file lẻ" };
+        public const string ConfigFile = "Config.dat";
+        public const string DeletePhraseFile = "DeletePhrase.dat";
+        public const string Forum = "http://www.tangthuvien.vn/forum/showthread.php?t=135248";
         string address, title;
 
         public string Address

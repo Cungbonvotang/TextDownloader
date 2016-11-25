@@ -53,12 +53,19 @@ namespace TextDownloader
 
         public void GetChapList()
         {
+            Invoke(new MethodInvoker(delegate { lblStatus.Text = "Lấy danh sách chương truyện"; }));
+            Invoke(new MethodInvoker(delegate { txtAddress.Enabled = false; }));
+            Invoke(new MethodInvoker(delegate { btnChapList.Enabled = false; }));
+            Invoke(new MethodInvoker(delegate { btnSetting.Enabled = false; }));
             address = txtAddress.Text.Trim();
             info = new List<Info>();
             GetText g = new GetText();
             if (g.CheckAddress(address))
             {
                 info = g.GetChapList(address);
+                ChapList c = new ChapList(this, info);
+                //c.Owner = this;
+                c.ShowDialog(this);
             }
         }
 
@@ -66,13 +73,9 @@ namespace TextDownloader
         {
             if (InternetConnection.IsConnectedToInternet())
             {
-                Invoke(new MethodInvoker(delegate { lblStatus.Text = "Tiến trình: Đang xử lý danh sách truyện..."; }));
                 Thread t = new Thread(GetChapList);
                 t.IsBackground = true;
                 t.Start();
-                t.Join();
-                ChapList c = new ChapList(this, info);
-                c.ShowDialog();
             }
             else
             {
@@ -89,7 +92,7 @@ namespace TextDownloader
 
         private void lblInfo_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.tangthuvien.vn/forum/showthread.php?t=135248");
+            System.Diagnostics.Process.Start(Info.Forum);
         }
     }
 }

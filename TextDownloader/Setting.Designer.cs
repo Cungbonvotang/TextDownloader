@@ -34,12 +34,14 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tpDeletePhrase = new System.Windows.Forms.TabPage();
+            this.cbDeletePhraseName = new System.Windows.Forms.ComboBox();
+            this.txtDeletePhrasePattern = new System.Windows.Forms.TextBox();
             this.tpRuleweb = new System.Windows.Forms.TabPage();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.btnTestRule = new System.Windows.Forms.Button();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.tabSetting.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             this.tpDeletePhrase.SuspendLayout();
@@ -53,8 +55,9 @@
             this.tabSetting.Location = new System.Drawing.Point(13, 13);
             this.tabSetting.Name = "tabSetting";
             this.tabSetting.SelectedIndex = 0;
-            this.tabSetting.Size = new System.Drawing.Size(479, 388);
+            this.tabSetting.Size = new System.Drawing.Size(479, 405);
             this.tabSetting.TabIndex = 0;
+            this.tabSetting.SelectedIndexChanged += new System.EventHandler(this.tabSetting_SelectedIndexChanged);
             // 
             // tpGeneral
             // 
@@ -64,7 +67,7 @@
             this.tpGeneral.Location = new System.Drawing.Point(4, 28);
             this.tpGeneral.Name = "tpGeneral";
             this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tpGeneral.Size = new System.Drawing.Size(471, 356);
+            this.tpGeneral.Size = new System.Drawing.Size(471, 373);
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "Chung";
             this.tpGeneral.UseVisualStyleBackColor = true;
@@ -95,75 +98,102 @@
             // 
             // tpDeletePhrase
             // 
-            this.tpDeletePhrase.Controls.Add(this.comboBox2);
-            this.tpDeletePhrase.Controls.Add(this.textBox2);
+            this.tpDeletePhrase.Controls.Add(this.lblInfo);
+            this.tpDeletePhrase.Controls.Add(this.cbDeletePhraseName);
+            this.tpDeletePhrase.Controls.Add(this.txtDeletePhrasePattern);
             this.tpDeletePhrase.Location = new System.Drawing.Point(4, 28);
             this.tpDeletePhrase.Name = "tpDeletePhrase";
             this.tpDeletePhrase.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDeletePhrase.Size = new System.Drawing.Size(471, 356);
+            this.tpDeletePhrase.Size = new System.Drawing.Size(471, 373);
             this.tpDeletePhrase.TabIndex = 1;
             this.tpDeletePhrase.Text = "Lọc text rác";
             this.tpDeletePhrase.UseVisualStyleBackColor = true;
+            // 
+            // cbDeletePhraseName
+            // 
+            this.cbDeletePhraseName.FormattingEnabled = true;
+            this.cbDeletePhraseName.Location = new System.Drawing.Point(0, 6);
+            this.cbDeletePhraseName.Name = "cbDeletePhraseName";
+            this.cbDeletePhraseName.Size = new System.Drawing.Size(343, 27);
+            this.cbDeletePhraseName.TabIndex = 1;
+            this.cbDeletePhraseName.SelectedIndexChanged += new System.EventHandler(this.cbDeletePhraseName_SelectedIndexChanged);
+            // 
+            // txtDeletePhrasePattern
+            // 
+            this.txtDeletePhrasePattern.Location = new System.Drawing.Point(-5, 49);
+            this.txtDeletePhrasePattern.Multiline = true;
+            this.txtDeletePhrasePattern.Name = "txtDeletePhrasePattern";
+            this.txtDeletePhrasePattern.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDeletePhrasePattern.Size = new System.Drawing.Size(480, 328);
+            this.txtDeletePhrasePattern.TabIndex = 0;
+            this.txtDeletePhrasePattern.Enter += new System.EventHandler(this.txtDeletePhrasePattern_Enter);
             // 
             // tpRuleweb
             // 
             this.tpRuleweb.Location = new System.Drawing.Point(4, 28);
             this.tpRuleweb.Name = "tpRuleweb";
             this.tpRuleweb.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRuleweb.Size = new System.Drawing.Size(471, 356);
+            this.tpRuleweb.Size = new System.Drawing.Size(471, 373);
             this.tpRuleweb.TabIndex = 2;
             this.tpRuleweb.Text = "Rule web";
             this.tpRuleweb.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(413, 416);
+            this.btnSave.Location = new System.Drawing.Point(413, 435);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 28);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(332, 416);
+            this.btnDelete.Location = new System.Drawing.Point(332, 435);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 28);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Visible = false;
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(251, 416);
+            this.btnNew.Location = new System.Drawing.Point(251, 435);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 28);
             this.btnNew.TabIndex = 3;
             this.btnNew.Text = "Mới";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Visible = false;
             // 
-            // textBox2
+            // btnTestRule
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 49);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(459, 301);
-            this.textBox2.TabIndex = 0;
+            this.btnTestRule.Location = new System.Drawing.Point(17, 435);
+            this.btnTestRule.Name = "btnTestRule";
+            this.btnTestRule.Size = new System.Drawing.Size(75, 28);
+            this.btnTestRule.TabIndex = 4;
+            this.btnTestRule.Text = "Test";
+            this.btnTestRule.UseVisualStyleBackColor = true;
+            this.btnTestRule.Visible = false;
+            this.btnTestRule.Click += new System.EventHandler(this.btnTestRule_Click);
             // 
-            // comboBox2
+            // lblInfo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 6);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(459, 27);
-            this.comboBox2.TabIndex = 1;
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.ForeColor = System.Drawing.Color.Red;
+            this.lblInfo.Location = new System.Drawing.Point(367, 9);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(0, 19);
+            this.lblInfo.TabIndex = 2;
             // 
             // Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 456);
+            this.ClientSize = new System.Drawing.Size(504, 475);
+            this.Controls.Add(this.btnTestRule);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
@@ -199,7 +229,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox cbDeletePhraseName;
+        private System.Windows.Forms.TextBox txtDeletePhrasePattern;
+        private System.Windows.Forms.Button btnTestRule;
+        private System.Windows.Forms.Label lblInfo;
     }
 }

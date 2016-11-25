@@ -17,9 +17,10 @@ namespace TextDownloader
         #region Khai báo
         Main main;
         List<Info> info;
-        public static List<Info> chapList;
-        BackgroundWorker background;
-        int startChap = 0, endChap = 0, fileTypeIndex = 0;
+        public static List<Info> chapAddresses;
+        public static string novelName;
+        int startChap = 0, endChap = 0;
+        public static int fileTypeIndex;
 
         public int StartChap
         {
@@ -168,12 +169,10 @@ namespace TextDownloader
         {
             if (cbFileType.SelectedIndex == 0)
             {
-                txtFileName.Enabled = true;
                 fileTypeIndex = 0;
             }
             else
             {
-                txtFileName.Enabled = false;
                 fileTypeIndex = 1;
             }
         }
@@ -184,20 +183,46 @@ namespace TextDownloader
             {
                 SetControlEnable(true);
                 main.Status.Text = "Tiến trình: ";
+                Application.Exit();
             }
+        }
+
+        private void ChapList_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            GetText get = new GetText();
+            get.Get(main, chapAddresses);
+            main.Address.Enabled = true;
+            main.ChapList.Enabled = true;
+            main.Setting.Enabled = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //chapList = new List<Info>();
-            //for (int i = 0; i < lvChapList.Items.Count; i++)
-            //{
-            //    if (lvChapList.Items[i].Checked)
-            //    {
-            //        chapList.Add(info[i]);
-            //    }
-            //}
-            //Dispose();
+            chapAddresses = new List<Info>();
+            for (int i = 0; i < lvChapList.Items.Count; i++)
+            {
+                if (lvChapList.Items[i].Checked)
+                {
+                    chapAddresses.Add(info[i]);
+                }
+            }
+            novelName = txtFileName.Text;
+            fileTypeIndex = cbFileType.SelectedIndex;
+
+            if (string.IsNullOrWhiteSpace(novelName))
+            {
+                MessageBox.Show("Tên file không được để trống", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (chapAddresses.Count == 0)
+            {
+                MessageBox.Show("Bạn chưa chọn chương truyện nào", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                Dispose();
+            }
         }
 
         private void btnCheck_Click(object sender, EventArgs e)
