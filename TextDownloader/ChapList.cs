@@ -126,9 +126,9 @@ namespace TextDownloader
 
         public void SetControlEnable(bool b)
         {
-            main.ChapList.Enabled = b;
-            main.Setting.Enabled = b;
-            main.Address.Enabled = b;
+            main.ChapListButton.Enabled = b;
+            main.SettingButton.Enabled = b;
+            main.AddressButton.Enabled = b;
         }
 
         private void ChapList_Load(object sender, EventArgs e)
@@ -179,21 +179,9 @@ namespace TextDownloader
 
         private void ChapList_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                SetControlEnable(true);
-                main.Status.Text = "Tiến trình: ";
-                Application.Exit();
-            }
-        }
-
-        private void ChapList_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            GetText get = new GetText();
-            get.Get(main, chapAddresses);
-            main.Address.Enabled = true;
-            main.ChapList.Enabled = true;
-            main.Setting.Enabled = true;
+            main.ChapListButton.Enabled = true;
+            main.AddressButton.Enabled = true;
+            main.SettingButton.Enabled = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -221,6 +209,7 @@ namespace TextDownloader
             }
             else
             {
+                Program.Form.Download();
                 Dispose();
             }
         }

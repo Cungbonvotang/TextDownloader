@@ -122,19 +122,21 @@ namespace TextDownloader
             {
                 List<string> list = new List<string>();
                 list = ReadFile(configFile);
+                string deleteString = null;
                 Parallel.ForEach(list, str =>
                 {
                     if (str.StartsWith(key + "=="))
-                        list.Remove(str);
+                        deleteString = str;
                     return;
                 });
 
+                list.Remove(deleteString);
                 list.Sort();
                 WriteFile(configFile, list);
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, "Lỗi ffd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

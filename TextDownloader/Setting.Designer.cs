@@ -30,21 +30,34 @@
         {
             this.tabSetting = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnSelectPath = new System.Windows.Forms.Button();
+            this.txtSaveFilePath = new System.Windows.Forms.TextBox();
             this.tpDeletePhrase = new System.Windows.Forms.TabPage();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.cbDeletePhraseName = new System.Windows.Forms.ComboBox();
             this.txtDeletePhrasePattern = new System.Windows.Forms.TextBox();
             this.tpRuleweb = new System.Windows.Forms.TabPage();
+            this.chkIsRightToLeft = new System.Windows.Forms.CheckBox();
+            this.chkIsReverse = new System.Windows.Forms.CheckBox();
+            this.chkIsEncodeGB2312 = new System.Windows.Forms.CheckBox();
+            this.txtContent = new System.Windows.Forms.TextBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.txtStart = new System.Windows.Forms.TextBox();
+            this.txtEnd = new System.Windows.Forms.TextBox();
+            this.txtChapAddress = new System.Windows.Forms.TextBox();
+            this.txtChapList = new System.Windows.Forms.TextBox();
+            this.txtRuleName = new System.Windows.Forms.TextBox();
+            this.lvRuleWebList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnTestRule = new System.Windows.Forms.Button();
-            this.lblInfo = new System.Windows.Forms.Label();
             this.tabSetting.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             this.tpDeletePhrase.SuspendLayout();
+            this.tpRuleweb.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabSetting
@@ -61,9 +74,8 @@
             // 
             // tpGeneral
             // 
-            this.tpGeneral.Controls.Add(this.button1);
-            this.tpGeneral.Controls.Add(this.comboBox1);
-            this.tpGeneral.Controls.Add(this.textBox1);
+            this.tpGeneral.Controls.Add(this.btnSelectPath);
+            this.tpGeneral.Controls.Add(this.txtSaveFilePath);
             this.tpGeneral.Location = new System.Drawing.Point(4, 28);
             this.tpGeneral.Name = "tpGeneral";
             this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
@@ -72,29 +84,23 @@
             this.tpGeneral.Text = "Chung";
             this.tpGeneral.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnSelectPath
             // 
-            this.button1.Location = new System.Drawing.Point(401, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(49, 36);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSelectPath.Location = new System.Drawing.Point(390, 12);
+            this.btnSelectPath.Name = "btnSelectPath";
+            this.btnSelectPath.Size = new System.Drawing.Size(75, 28);
+            this.btnSelectPath.TabIndex = 1;
+            this.btnSelectPath.Text = "Chọn";
+            this.btnSelectPath.UseVisualStyleBackColor = true;
+            this.btnSelectPath.Click += new System.EventHandler(this.btnSelectPath_Click);
             // 
-            // comboBox1
+            // txtSaveFilePath
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 84);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(335, 27);
-            this.comboBox1.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(7, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(388, 26);
-            this.textBox1.TabIndex = 0;
+            this.txtSaveFilePath.Enabled = false;
+            this.txtSaveFilePath.Location = new System.Drawing.Point(6, 14);
+            this.txtSaveFilePath.Name = "txtSaveFilePath";
+            this.txtSaveFilePath.Size = new System.Drawing.Size(378, 26);
+            this.txtSaveFilePath.TabIndex = 0;
             // 
             // tpDeletePhrase
             // 
@@ -108,6 +114,15 @@
             this.tpDeletePhrase.TabIndex = 1;
             this.tpDeletePhrase.Text = "Lọc text rác";
             this.tpDeletePhrase.UseVisualStyleBackColor = true;
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.ForeColor = System.Drawing.Color.Red;
+            this.lblInfo.Location = new System.Drawing.Point(367, 9);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(0, 19);
+            this.lblInfo.TabIndex = 2;
             // 
             // cbDeletePhraseName
             // 
@@ -130,6 +145,17 @@
             // 
             // tpRuleweb
             // 
+            this.tpRuleweb.Controls.Add(this.chkIsRightToLeft);
+            this.tpRuleweb.Controls.Add(this.chkIsReverse);
+            this.tpRuleweb.Controls.Add(this.chkIsEncodeGB2312);
+            this.tpRuleweb.Controls.Add(this.txtContent);
+            this.tpRuleweb.Controls.Add(this.txtTitle);
+            this.tpRuleweb.Controls.Add(this.txtStart);
+            this.tpRuleweb.Controls.Add(this.txtEnd);
+            this.tpRuleweb.Controls.Add(this.txtChapAddress);
+            this.tpRuleweb.Controls.Add(this.txtChapList);
+            this.tpRuleweb.Controls.Add(this.txtRuleName);
+            this.tpRuleweb.Controls.Add(this.lvRuleWebList);
             this.tpRuleweb.Location = new System.Drawing.Point(4, 28);
             this.tpRuleweb.Name = "tpRuleweb";
             this.tpRuleweb.Padding = new System.Windows.Forms.Padding(3);
@@ -137,6 +163,110 @@
             this.tpRuleweb.TabIndex = 2;
             this.tpRuleweb.Text = "Rule web";
             this.tpRuleweb.UseVisualStyleBackColor = true;
+            // 
+            // chkIsRightToLeft
+            // 
+            this.chkIsRightToLeft.AutoSize = true;
+            this.chkIsRightToLeft.Location = new System.Drawing.Point(265, 320);
+            this.chkIsRightToLeft.Name = "chkIsRightToLeft";
+            this.chkIsRightToLeft.Size = new System.Drawing.Size(148, 23);
+            this.chkIsRightToLeft.TabIndex = 10;
+            this.chkIsRightToLeft.Text = "Lưu từ trái qua phải";
+            this.chkIsRightToLeft.UseVisualStyleBackColor = true;
+            // 
+            // chkIsReverse
+            // 
+            this.chkIsReverse.AutoSize = true;
+            this.chkIsReverse.Location = new System.Drawing.Point(265, 290);
+            this.chkIsReverse.Name = "chkIsReverse";
+            this.chkIsReverse.Size = new System.Drawing.Size(147, 23);
+            this.chkIsReverse.TabIndex = 9;
+            this.chkIsReverse.Text = "Đảo ngược văn bản";
+            this.chkIsReverse.UseVisualStyleBackColor = true;
+            // 
+            // chkIsEncodeGB2312
+            // 
+            this.chkIsEncodeGB2312.AutoSize = true;
+            this.chkIsEncodeGB2312.Location = new System.Drawing.Point(265, 260);
+            this.chkIsEncodeGB2312.Name = "chkIsEncodeGB2312";
+            this.chkIsEncodeGB2312.Size = new System.Drawing.Size(139, 23);
+            this.chkIsEncodeGB2312.TabIndex = 8;
+            this.chkIsEncodeGB2312.Text = "Dùng mã GB2312";
+            this.chkIsEncodeGB2312.UseVisualStyleBackColor = true;
+            // 
+            // txtContent
+            // 
+            this.txtContent.Location = new System.Drawing.Point(265, 218);
+            this.txtContent.Name = "txtContent";
+            this.txtContent.Size = new System.Drawing.Size(200, 26);
+            this.txtContent.TabIndex = 7;
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(265, 177);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(200, 26);
+            this.txtTitle.TabIndex = 6;
+            // 
+            // txtStart
+            // 
+            this.txtStart.Location = new System.Drawing.Point(265, 133);
+            this.txtStart.Name = "txtStart";
+            this.txtStart.Size = new System.Drawing.Size(95, 26);
+            this.txtStart.TabIndex = 5;
+            // 
+            // txtEnd
+            // 
+            this.txtEnd.Location = new System.Drawing.Point(370, 133);
+            this.txtEnd.Name = "txtEnd";
+            this.txtEnd.Size = new System.Drawing.Size(95, 26);
+            this.txtEnd.TabIndex = 4;
+            // 
+            // txtChapAddress
+            // 
+            this.txtChapAddress.Location = new System.Drawing.Point(265, 89);
+            this.txtChapAddress.Name = "txtChapAddress";
+            this.txtChapAddress.Size = new System.Drawing.Size(200, 26);
+            this.txtChapAddress.TabIndex = 3;
+            // 
+            // txtChapList
+            // 
+            this.txtChapList.Location = new System.Drawing.Point(265, 47);
+            this.txtChapList.Name = "txtChapList";
+            this.txtChapList.Size = new System.Drawing.Size(200, 26);
+            this.txtChapList.TabIndex = 2;
+            // 
+            // txtRuleName
+            // 
+            this.txtRuleName.Location = new System.Drawing.Point(265, 6);
+            this.txtRuleName.Name = "txtRuleName";
+            this.txtRuleName.Size = new System.Drawing.Size(200, 26);
+            this.txtRuleName.TabIndex = 1;
+            // 
+            // lvRuleWebList
+            // 
+            this.lvRuleWebList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.lvRuleWebList.FullRowSelect = true;
+            this.lvRuleWebList.Location = new System.Drawing.Point(-5, 7);
+            this.lvRuleWebList.MultiSelect = false;
+            this.lvRuleWebList.Name = "lvRuleWebList";
+            this.lvRuleWebList.Size = new System.Drawing.Size(255, 370);
+            this.lvRuleWebList.TabIndex = 0;
+            this.lvRuleWebList.UseCompatibleStateImageBehavior = false;
+            this.lvRuleWebList.View = System.Windows.Forms.View.Details;
+            this.lvRuleWebList.SelectedIndexChanged += new System.EventHandler(this.lvRuleWebList_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "STT";
+            this.columnHeader1.Width = 50;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Tên rule";
+            this.columnHeader2.Width = 200;
             // 
             // btnSave
             // 
@@ -146,6 +276,7 @@
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Visible = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -157,6 +288,7 @@
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Visible = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNew
             // 
@@ -167,6 +299,7 @@
             this.btnNew.Text = "Mới";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Visible = false;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnTestRule
             // 
@@ -178,15 +311,6 @@
             this.btnTestRule.UseVisualStyleBackColor = true;
             this.btnTestRule.Visible = false;
             this.btnTestRule.Click += new System.EventHandler(this.btnTestRule_Click);
-            // 
-            // lblInfo
-            // 
-            this.lblInfo.AutoSize = true;
-            this.lblInfo.ForeColor = System.Drawing.Color.Red;
-            this.lblInfo.Location = new System.Drawing.Point(367, 9);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(0, 19);
-            this.lblInfo.TabIndex = 2;
             // 
             // Setting
             // 
@@ -208,11 +332,14 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cài đặt";
+            this.Load += new System.EventHandler(this.Setting_Load);
             this.tabSetting.ResumeLayout(false);
             this.tpGeneral.ResumeLayout(false);
             this.tpGeneral.PerformLayout();
             this.tpDeletePhrase.ResumeLayout(false);
             this.tpDeletePhrase.PerformLayout();
+            this.tpRuleweb.ResumeLayout(false);
+            this.tpRuleweb.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -226,12 +353,24 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.TabPage tpRuleweb;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txtSaveFilePath;
         private System.Windows.Forms.ComboBox cbDeletePhraseName;
         private System.Windows.Forms.TextBox txtDeletePhrasePattern;
         private System.Windows.Forms.Button btnTestRule;
         private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.ListView lvRuleWebList;
+        private System.Windows.Forms.CheckBox chkIsRightToLeft;
+        private System.Windows.Forms.CheckBox chkIsReverse;
+        private System.Windows.Forms.CheckBox chkIsEncodeGB2312;
+        private System.Windows.Forms.TextBox txtContent;
+        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.TextBox txtStart;
+        private System.Windows.Forms.TextBox txtEnd;
+        private System.Windows.Forms.TextBox txtChapAddress;
+        private System.Windows.Forms.TextBox txtChapList;
+        private System.Windows.Forms.TextBox txtRuleName;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button btnSelectPath;
     }
 }

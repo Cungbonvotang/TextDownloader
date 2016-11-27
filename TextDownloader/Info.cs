@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextDownloader
+﻿namespace TextDownloader
 {
     public class Info
     {
@@ -28,5 +22,12 @@ namespace TextDownloader
             get { return title; }
             set { title = value; }
         }
+    }
+
+    public class Rule
+    {
+        public string Find { get; set; }
+        public string Replace { get; set; }
+        public string Option { get; set; }
     }
 }

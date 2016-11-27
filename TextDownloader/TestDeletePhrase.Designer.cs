@@ -44,7 +44,7 @@
             this.txtDeletePhrasePattern.Multiline = true;
             this.txtDeletePhrasePattern.Name = "txtDeletePhrasePattern";
             this.txtDeletePhrasePattern.Size = new System.Drawing.Size(400, 370);
-            this.txtDeletePhrasePattern.TabIndex = 0;
+            this.txtDeletePhrasePattern.TabIndex = 2;
             // 
             // cbDeletePhraseName
             // 
@@ -53,6 +53,7 @@
             this.cbDeletePhraseName.Name = "cbDeletePhraseName";
             this.cbDeletePhraseName.Size = new System.Drawing.Size(400, 27);
             this.cbDeletePhraseName.TabIndex = 1;
+            this.cbDeletePhraseName.SelectedIndexChanged += new System.EventHandler(this.cbDeletePhraseName_SelectedIndexChanged);
             // 
             // txtResult
             // 
@@ -62,6 +63,7 @@
             this.txtResult.Location = new System.Drawing.Point(428, 59);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
+            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtResult.Size = new System.Drawing.Size(246, 370);
             this.txtResult.TabIndex = 3;
             // 
@@ -72,7 +74,7 @@
             this.txtAddress.Location = new System.Drawing.Point(428, 13);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(74, 26);
-            this.txtAddress.TabIndex = 4;
+            this.txtAddress.TabIndex = 1;
             // 
             // btnReplace
             // 
@@ -83,6 +85,7 @@
             this.btnReplace.TabIndex = 5;
             this.btnReplace.Text = "Xóa";
             this.btnReplace.UseVisualStyleBackColor = true;
+            this.btnReplace.Click += new System.EventHandler(this.btnReplace_Click);
             // 
             // btnDownload
             // 
@@ -93,6 +96,7 @@
             this.btnDownload.TabIndex = 6;
             this.btnDownload.Text = "Tải";
             this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // TestDeletePhrase
             // 
@@ -106,13 +110,13 @@
             this.Controls.Add(this.cbDeletePhraseName);
             this.Controls.Add(this.txtDeletePhrasePattern);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MaximizeBox = false;
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(700, 480);
             this.Name = "TestDeletePhrase";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "TestDeletePhrase";
+            this.Text = "Thử nghiệm rule lọc rác";
             this.ResumeLayout(false);
             this.PerformLayout();
 

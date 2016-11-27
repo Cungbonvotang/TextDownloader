@@ -198,7 +198,7 @@ namespace TextDownloader
             }
         }
 
-        private string RemoveHTMLTag(string dataInput)
+        private string RemoveHTMLTag(string dataInput, string keyDeletePhrase)
         {
             dataInput = Regex.Replace(dataInput, @"<p>|<br>|<br \/>", "_newline1_");
             dataInput = Regex.Replace(dataInput, @"(&nbsp;)+", "");
@@ -211,12 +211,32 @@ namespace TextDownloader
             dataInput = Regex.Replace(dataInput, @"(\r\n|\r?\n|\n){1,}", "\r\n    ");
             dataInput = Regex.Replace(dataInput, @"_newline2_", "\r\n\r\n    ");
 
+            //var lines = File.ReadLines(Info.DeletePhraseFile);
+
+            //Parallel.ForEach(lines, line =>
+            //{
+            //    if (line.StartsWith("Chung"))
+            //    {
+            //        string[] deletePhrasePattern = line.Split(new string[] { "==" }, StringSplitOptions.None);
+            //        dataInput = Regex.Replace(dataInput, deletePhrasePattern[1], deletePhrasePattern[2]);
+            //    }
+            //});
+
+            //Parallel.ForEach(lines, line =>
+            //{
+            //    if (line.StartsWith(keyDeletePhrase))
+            //    {
+            //        string[] deletePhrasePattern = line.Split(new string[] { "==" }, StringSplitOptions.None);
+            //        dataInput = Regex.Replace(dataInput, deletePhrasePattern[1], deletePhrasePattern[2]);
+            //    }
+            //});
+
             return dataInput;
         }
 
         public bool Get(Main main, List<Info> chapAddresses)
         {
-            if (!GetNode(main.Address.Text.Trim())) return false;
+            if (!GetNode(main.AddressButton.Text.Trim())) return false;
             int chapNumber = chapAddresses.Count;
             string[] novel = new string[chapNumber];
             int count = 0;
@@ -245,6 +265,8 @@ namespace TextDownloader
             });
 
             main.Status.Text = "Tiến trình: Xử lý text rác...";
+            string[] str = main.AddressButton.Text.Trim().Split('/');
+
             Parallel.For(0, chapNumber, i =>
             {
                 var doc = new HtmlAgilityPack.HtmlDocument();
@@ -254,7 +276,7 @@ namespace TextDownloader
                     content = doc.DocumentNode.SelectSingleNode(contentNode).InnerHtml;
                 content = novel[i];
                 novel[i] = chapAddresses[i].Title + "_newline2_" + content + "_newline2_";
-                novel[i] = RemoveHTMLTag(novel[i]);
+                novel[i] = RemoveHTMLTag(novel[i], str[2]);
             });
 
             if (ChapList.fileTypeIndex == 0)

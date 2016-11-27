@@ -17,19 +17,19 @@ namespace TextDownloader
         string address;
         List<Info> info;
 
-        public TextBox Address
+        public TextBox AddressButton
         {
             get { return txtAddress; }
             set { txtAddress = value; }
         }
 
-        public Button Setting
+        public Button SettingButton
         {
             get { return btnSetting; }
             set { btnSetting = value; }
         }
 
-        public Button ChapList
+        public Button ChapListButton
         {
             get { return btnChapList; }
             set { btnChapList = value; }
@@ -67,6 +67,21 @@ namespace TextDownloader
                 //c.Owner = this;
                 c.ShowDialog(this);
             }
+        }
+
+        public void Download()
+        {
+            Thread t = new Thread(() => 
+            {
+                GetText get = new GetText();
+                get.Get(this, ChapList.chapAddresses);
+            });
+            t.IsBackground = true;
+            t.Start();
+            
+            //main.Address.Enabled = true;
+            //main.ChapList.Enabled = true;
+            //main.Setting.Enabled = true;
         }
 
         private void btnChapList_Click(object sender, EventArgs e)
